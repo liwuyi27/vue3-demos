@@ -11,13 +11,16 @@
 <script setup lang="ts">
 /* snippet-hello */
 function hello() {
-  console.log('Hello World!')
+  /*seg-foo*/
+  console.log('Hello World!');
+  /*seg-foo*/
 }
 /* snippet-hello */
 
+
 /* snippet-hi */
 function hi() {
-  console.log('Hello World!')
+  console./*seg-foo*/log/*seg-foo*/('Hello World!');
 }
 /* snippet-hi */
 </script>

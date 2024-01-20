@@ -1,3 +1,4 @@
+import { trimLineChar } from "@/share";
 interface ParseResult {
   template: ParseResultItem,
   script: ParseResultItem,
@@ -54,13 +55,15 @@ function parseParseResultItem(content: string) {
   let match = snippetRegx.exec(content);
   while(match) {
     const { name, code } = match.groups!;
-    resultItem[name] = code;
+    resultItem[name] = trimLineChar(code);
     match = snippetRegx.exec(content);
   }
   return resultItem;
 }
 
 function clearSnippetComment(content: string) {
-  const commentRegx = /\/\*\s+snippet-[\w-]+\s+\*\//g;
-  return content.replace(commentRegx, '');
+  const commentRegx = /\/\*\s+snippet-[\w-]+\s+\*\/\r\n/g;
+  let ret = content.replace(commentRegx, '');
+  ret = trimLineChar(ret);
+  return ret;
 }
