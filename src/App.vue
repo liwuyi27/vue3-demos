@@ -18,6 +18,7 @@ html, body, #app, .app-container {
 
 .app-container {
   display: flex;
+  background: rgb(30, 30, 30);
 }
 .app-main {
   padding: 20px;

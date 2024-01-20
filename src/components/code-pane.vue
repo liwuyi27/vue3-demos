@@ -1,5 +1,5 @@
 <template>
-  <div v-html="codeHtml" class="code-pane"></div>
+  <div v-html="codeHtml" class="code-pane" :class="{ border }" :style="borderStyle"></div>
 </template>
 <script setup lang="ts">
 import { setCDN, getHighlighter, renderToHtml } from "shiki";
@@ -7,12 +7,19 @@ import type { Highlighter,  } from 'shiki';
 import { useShiki } from '@/composables/shiki';
 import { onMounted, ref } from "vue";
 interface Props {
-  code: string
+  code: string,
+  bg?: string,
+  border?: boolean,
+  borderStyle?: Record<string, string>
+  lang: string
 }
 
 setCDN('/node_modules/shiki/');
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  bg: 'rgb(30, 30, 30)',
+  border: true,
+});
 
 let highlighter: Highlighter;
 
@@ -25,9 +32,9 @@ onMounted(async () => {
 })
 
 function highlightCode() {
-  const tokens = highlighter.codeToThemedTokens(props.code, 'javascript');
+  const tokens = highlighter.codeToThemedTokens(props.code, props.lang);
   codeHtml.value = renderToHtml(tokens, {
-    bg: 'rgb(30, 30, 30)',
+    bg: props.bg,
     elements: {
       line({ className, children, line }) {
         if (isBlockSegMark(line)) {
@@ -50,6 +57,10 @@ function highlightCode() {
 .code-pane {
   pre {
     padding: 20px;
+    margin: 0;
+  }
+  &.border {
+    border: 1px solid gray;
   }
   .line {
     display: block;
