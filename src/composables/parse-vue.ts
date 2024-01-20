@@ -25,7 +25,11 @@ export const useParseVue = (modules: Record<string, string>) => {
     Object.entries(parseRegx).forEach(([key, regx]) => {
       const match = regx.exec(content);
       if (match) {
-        const parseResultItem = parseParseResultItem(match.groups!.content);
+        let content = match.groups!.content;
+        if (key === 'template') {
+          content = clearTempalteIndent(content);
+        }
+        const parseResultItem = parseParseResultItem(content);
         parseResult[key as keyof ParseResult] = parseResultItem;
       } else {
         throw new Error(`Invalid ${key}: \n${content}`)
@@ -66,4 +70,11 @@ function clearSnippetComment(content: string) {
   let ret = content.replace(commentRegx, '');
   ret = trimLineChar(ret);
   return ret;
+}
+
+function clearTempalteIndent(content: string) {
+  const subs = content.split(/\r?\n/).map(item => {
+    return item.slice(2);
+  });
+  return subs.join('\r\n');
 }
