@@ -22,5 +22,6 @@ html, body, #app, .app-container {
 }
 .app-main {
   padding: 20px;
+  position: relative;
 }
 </style>
