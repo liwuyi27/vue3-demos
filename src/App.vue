@@ -23,5 +23,7 @@ html, body, #app, .app-container {
 .app-main {
   padding: 20px;
   position: relative;
+  flex-grow: 1;
+  display: flex;
 }
 </style>
