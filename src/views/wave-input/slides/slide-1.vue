@@ -1,18 +1,29 @@
 <template>
-  <div class="slide-1">
-    <div class="title" :class="{ 'step': show }">
+  <div class="slide-1" ref="slideElm">
+    <div class="title" v-if="clicks >= 1">
       输入文本波浪动画
     </div>
-    <!-- <result-pane class="result" v-if="show"></result-pane> -->
+    <transition>
+      <result-pane v-if="clicks === 2" class="result click-any">
+        <code1></code1>
+      </result-pane>
+    </transition>
   </div>
 </template>
 <script setup lang="ts">
 import ResultPane from "@/components/result-pane.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouteQuery } from "@vueuse/router";
+import { onKeyStroke, useElementBounding } from "@vueuse/core";
+import Code1 from '../codes/code-1.vue';
 const show = ref(false)
-setInterval(() => {
-  show.value = !show.value;
-}, 2000)
+const clicks = useRouteQuery('clicks', 0, { transform: Number });
+const slides = useRouteQuery('slides', 1, { transform: Number });
+const slideElm = ref();
+const { width, height } = useElementBounding(slideElm);
+const stepTotal = 2;
+
+
 </script>
 <style lang="scss">
 .slide-1 {
@@ -22,30 +33,35 @@ setInterval(() => {
   flex-grow: 1;
   flex-direction: column;
   position: relative;
+
   .title {
     color: white;
     font-weight: bold;
     font-size: 100px;
-    transition: all 1.5s linear;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    // visibility: visible;
-    opacity: 1;
-     
-    &.step {
+  }
+
+  .result {
+    width: 800px;
+    height: 500px;
+    transition: height 1s linear, opacity 0.5s 1s linear, flex-grow 1s linear;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.v-enter-from,
+    &.v-leave-to {
+      height: 0;
       opacity: 0;
-      // top: 10%
-      // visibility: hidden;
+    }
+
+    &.v-enter-to,
+    &.v-leave-from {
+      height: 500px;
+      opacity: 1;
     }
   }
 
 
-
-  .result {
-    height: 500px;
-    width: 700px;
-    transition: all 1s linear;
-  }
 }
 </style>

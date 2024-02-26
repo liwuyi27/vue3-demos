@@ -33,7 +33,7 @@ function createRoutes() {
         routes.push(route);
       }
       route.children?.push({
-        name,
+        name: `${dir}-${name}`,
         path: `${name}`,
         component: moduleFn
       })

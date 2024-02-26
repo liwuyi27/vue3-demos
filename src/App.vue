@@ -25,5 +25,6 @@ html, body, #app, .app-container {
   position: relative;
   flex-grow: 1;
   display: flex;
+  color: white;
 }
 </style>

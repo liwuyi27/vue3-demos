@@ -48,7 +48,6 @@ const svgPath = ref('');
 
 onMounted(() => {
   svgPath.value = draw();
-  console.log(svgPath.value);
 })
 
 function draw() {

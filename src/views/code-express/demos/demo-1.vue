@@ -1,11 +1,7 @@
 <template>
-  <div class="demo-1">
-    <span>Hello World!</span>
-    <ul>
-      <li>good morning</li>
-      <li>good afternoon</li>
-      <li>good evening</li>
-    </ul>
+  <div class="input-box">
+    <input type="text" required>
+    <label>请 输 入 您 的 用 户 名 称</label>
   </div>
 </template>
 <script setup lang="ts">
