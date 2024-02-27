@@ -2,7 +2,7 @@
   <div class="tooltip" ref="tooltipElm">
     <slot></slot>
   </div>
-  <CurveArrow v-if="elmReady" :start-elm="tooltipElm!" :end-elm="anchorElm!" :options="curveOptions"></CurveArrow>
+  <CurveArrow v-if="elmReady" :start-elm="tooltipElm!" :end-elm="anchorElm!" :options="curveOptions" v-bind="$attrs"></CurveArrow>
 </template>
 <script setup lang="ts">
 import { computePosition, flip, offset, shift, type OffsetOptions, type Placement } from '@floating-ui/dom';
@@ -14,7 +14,8 @@ import type { PointOptions } from './curve';
 interface Props {
   anchor: string,
   placement?: Placement,
-  offset?: OffsetOptions
+  offset?: OffsetOptions,
+  curveOptions: PointOptions
 }
 const props = defineProps<Props>();
 const tooltipElm = ref<HTMLElement>();
@@ -23,12 +24,6 @@ const elmReady = computed(() => {
   return tooltipElm.value && anchorElm.value && afterComputePosition.value; 
 });
 const afterComputePosition = ref(false);
-const curveOptions: PointOptions = {
-  linear: true,
-  startPlacement: 'top-right',
-  endPlacement: 'right-mid',
-  ctl1Offset: { x: 100, y: 100 }
-}
 onMounted(() => {
   anchorElm.value = document.querySelector(props.anchor) as HTMLElement;
   computePosition(unrefElement(anchorElm)!, unrefElement(tooltipElm)!, {

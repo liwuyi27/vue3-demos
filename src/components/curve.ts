@@ -10,12 +10,16 @@ export interface Point {
 }
 
 export interface Offset {
-  x: number
+  x?: number
+  y?: number
+}
+
+export interface FormatedOffset {
+  x: number,
   y: number
 }
 
 export interface PointOptions {
-  linear?: boolean,
   // p0
   startPlacement: Placement
   startOffset?: Offset
@@ -25,7 +29,7 @@ export interface PointOptions {
   // p1
   ctl1Offset?: Offset
   // p2
-  ctl2Offset?: Offset,
+  ctl2Offset?: Offset
 }
 
 type Placement =
@@ -62,34 +66,22 @@ export class Curve {
   }
 
   getPoints(options: PointOptions) {
-    options.ctl1Offset = options.ctl1Offset ?? { x: 0, y: 0 }
-    options.ctl2Offset = options.ctl2Offset ?? { x: 0, y: 0 }
+    options.ctl1Offset = formatOffset(options.ctl1Offset);
+    options.ctl2Offset = formatOffset(options.ctl2Offset);
+    options.startOffset = formatOffset(options.startOffset);
+    options.endOffset = formatOffset(options.endOffset);
     const p0 = this.startPosition.getPoint(options.startPlacement, options.startOffset)
     const p = this.endPosition.getPoint(options.endPlacement, options.endOffset)
     const width = p.x - p0.x
     const height = p.y - p0.y
-    let p1: Point;
-    let p2: Point;
-    if (options.linear) {
-      p1 = {
-        x: p0.x + width / 3,
-        y: p0.y + height / 3
-      };
-      p2 = {
-        x: p0.x + width / 3 * 2,
-        y: p0.y + height / 3 * 2
-      }
-    } else {
-      p1 = {
-        x: p0.x + width / 2 + options.ctl1Offset.x,
-        y: p0.y - height + options.ctl1Offset.y
-      };
-      p2 = {
-        x: p0.x + width + options.ctl2Offset.x,
-        y: p0.y + height / 2 + options.ctl2Offset.y
-      }
+    const p1: Point = {
+      x: p0.x + width / 3 + options.ctl1Offset.x,
+      y: p0.y + height / 3 + options.ctl1Offset.y
     }
-
+    const p2: Point = {
+      x: p0.x + (width / 3) * 2 + options.ctl2Offset.x,
+      y: p0.y + (height / 3) * 2 + options.ctl2Offset.y
+    }
     return {
       p0,
       p1,
@@ -193,5 +185,12 @@ class Rect {
 
   get height() {
     return this.bottom - this.top
+  }
+}
+
+function formatOffset(offset?: Offset): FormatedOffset {
+  return {
+    x: offset?.x ?? 0,
+    y: offset?.y ?? 0
   }
 }

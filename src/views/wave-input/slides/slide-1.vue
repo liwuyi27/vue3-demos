@@ -1,10 +1,10 @@
 <template>
   <div class="slide-1" ref="slideElm">
-    <div class="title" v-if="clicks >= 1">
+    <div class="title" v-if="clicks >= 0">
       输入文本波浪动画
     </div>
     <transition>
-      <result-pane v-if="clicks === 2" class="result click-any">
+      <result-pane v-if="clicks === 1" class="result click-any">
         <code1></code1>
       </result-pane>
     </transition>
@@ -35,9 +35,11 @@ const stepTotal = 2;
   position: relative;
 
   .title {
-    color: white;
-    font-weight: bold;
-    font-size: 100px;
+    color: transparent;
+    background-image: linear-gradient(to right,orange, yellow);
+    font-size: 70px;
+    margin-bottom: 20px;
+    background-clip: text;
   }
 
   .result {

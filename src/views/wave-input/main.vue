@@ -14,7 +14,7 @@ import { useRouteQuery } from "@vueuse/router";
 import { computed } from 'vue';
 const slides = useRouteQuery('slides', 1, { transform: Number });
 const clicks = useRouteQuery('clicks', 0, { transform: Number });
-const clickTotals = [2, 5];
+const clickTotals = [1, 5];
 const slideTotal = 2;
 const clickTotal = computed(() => {
   return clickTotals[slides.value - 1];

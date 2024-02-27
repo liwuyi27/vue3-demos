@@ -41,7 +41,7 @@ onMounted(() => {
 
 /* snippet-basic */
 
-.click-1, .click-2,.click-3, .click-any {
+.click-after-2, .click-any {
   /* snippet-inputbox */
   .input-box {
     position: relative;
@@ -65,7 +65,7 @@ onMounted(() => {
   /* snippet-inputbox */
 }
 
-.click-2, .click-3, .click-any{
+.click-after-3, .click-any{
   /* snippet-inputlabel */
   .input-box label {
     position: absolute;
@@ -87,7 +87,7 @@ onMounted(() => {
   /* snippet-inputlabel */
 }
 
-.click-3, .click-any {
+.click-after-4, .click-any {
   /* snippet-inputlabelcolor */
   .input-box input:focus~label span,
   .input-box input:valid~label span {

@@ -15,7 +15,6 @@ const pointOptions: PointOptions = {
   startPlacement: 'right-mid',
   endPlacement: 'top-mid',
   ctl1Offset: { y: 50, x: 0 },
-  linear: false
 }
 
 </script>

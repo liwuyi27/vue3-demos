@@ -16,16 +16,17 @@ interface Props {
   strokeWidth?: number,
   arrowDeg?: number,
   arrowLen?: number,
-  debug?: boolean
+  debug?: boolean,
+  padding?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
   strokeColor: 'white',
-  strokeWidth: 1,
+  strokeWidth: 3,
   arrowDeg: 30,
   arrowLen: 15,
   debug: false
-});
+})
 
 const arrowRadian = computed(() => {
   return props.arrowDeg / 180 * Math.PI;
@@ -54,6 +55,7 @@ function draw() {
   const curve = new Curve({ 
     startElm: props.startElm,
     endElm: props.endElm,
+    padding: props.padding
   });
   width.value = curve.container.width;
   height.value = curve.container.height;
