@@ -1,8 +1,6 @@
 <template>
-  <Transition>
-    <div class="step" v-if="show">
-      <slot></slot>
-    </div>
+  <Transition mode="out-in">
+    <slot v-if="show"></slot>
   </Transition>
 </template>
 <script setup lang="ts">
@@ -11,15 +9,15 @@ import { useRouteQuery } from '@vueuse/router';
 import { isNil, isArray, isNumber, isString } from 'lodash';
 import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 interface Props {
-  steps?: number[] | string | number
+  steps?: number[] | string | number,
+  class?: any
 }
 const props = defineProps<Props>();
 const myStep = ref(-1);
 const curStep = useRouteQuery('step', 1, { transform: Number });
 
 onMounted(() => {
-  myStep.value = getChildrenIndex(getCurrentInstance()!, 'step') + 1;
-  console.log(myStep.value);
+  myStep.value = getChildrenIndex(getCurrentInstance()!, 'step', 'slide') + 1;
 })
 
 const show = computed(() => {

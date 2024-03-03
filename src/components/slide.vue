@@ -19,7 +19,7 @@ const show = computed(() => {
 
 onMounted(() => {
   stepTotal.value = getChildrenCount(getCurrentInstance()!, 'step');
-  mySlide.value = getChildrenIndex(getCurrentInstance()!, 'slide') + 1; 
+  mySlide.value = getChildrenIndex(getCurrentInstance()!, 'slide', 'blog') + 1; 
   updateStepTotals(mySlide.value, stepTotal.value);    
 })
 
