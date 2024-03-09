@@ -24,7 +24,7 @@
       <code-pane :code="codes['code-1'].script['set-animate']" lang="js" title="添加 set animate"></code-pane>
     </step>
     <step>
-      <tooltip anchor="#query" placement="right" :offset="{ mainAxis: 2 }" :curve-options="{ startPlacement: 'left-mid', endPlacement: 'right-mid' }">
+      <tooltip anchor="#query" placement="right" :offset="{ mainAxis: 50 }" :curve-options="{ startPlacement: 'left-mid', endPlacement: 'right-mid' }">
         I am tooltip
       </tooltip>
     </step>
