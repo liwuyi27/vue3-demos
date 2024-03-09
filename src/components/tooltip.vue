@@ -26,6 +26,7 @@ const elmReady = computed(() => {
 const afterComputePosition = ref(false);
 onMounted(() => {
   anchorElm.value = document.querySelector(props.anchor) as HTMLElement;
+  console.log(anchorElm.value)
   computePosition(unrefElement(anchorElm)!, unrefElement(tooltipElm)!, {
     placement: props.placement,
     middleware: [offset(props.offset), flip(), shift()]

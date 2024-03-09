@@ -1,6 +1,7 @@
 import type { InjectionKey, Ref } from "vue";
 
 interface Step {
+  mySlide: Ref<number>
   stepTotal: Ref<number>,
 }
 

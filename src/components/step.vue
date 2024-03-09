@@ -1,13 +1,14 @@
 <template>
   <Transition mode="out-in">
-    <slot v-if="show"></slot>
+    <slot  v-if="show"></slot>
   </Transition>
 </template>
 <script setup lang="ts">
 import { getChildrenIndex } from '@/composables/children-count';
+import { stepKey } from '@/keys';
 import { useRouteQuery } from '@vueuse/router';
 import { isNil, isArray, isNumber, isString } from 'lodash';
-import { computed, getCurrentInstance, onMounted, ref } from 'vue';
+import { computed, getCurrentInstance, inject, onMounted, ref } from 'vue';
 interface Props {
   steps?: number[] | string | number,
   class?: any
@@ -15,12 +16,17 @@ interface Props {
 const props = defineProps<Props>();
 const myStep = ref(-1);
 const curStep = useRouteQuery('step', 1, { transform: Number });
+const curSlide = useRouteQuery('slide', 1, { transform: Number });
+const { stepTotal, mySlide } = inject(stepKey)!
 
 onMounted(() => {
   myStep.value = getChildrenIndex(getCurrentInstance()!, 'step', 'slide') + 1;
 })
 
 const show = computed(() => {
+  if (curSlide.value !== mySlide.value) {
+    return false;
+  }
   return steps.value.includes(curStep.value);
 })
 
@@ -41,7 +47,7 @@ const steps = computed(() => {
 })
 
 function parseStepRange(range: string) {
-  const stepRangeRegx = /([[(])(\d),(\d)([\])])/g;
+  const stepRangeRegx = /([[(])(\d),(-?\d)([\])])/g;
   const ret: number[] = [];
   let match;
   do {
@@ -49,6 +55,9 @@ function parseStepRange(range: string) {
     if (!match) break;
     let start = Number(match[2]);
     let end = Number(match[3]);
+    if (end <= 0) {
+      end = stepTotal.value + end;
+    }
     if (match[1] === '(') {
       start = start + 1;
     }

@@ -8,11 +8,9 @@
 import { onMounted } from 'vue';
 function setAnimate() {
   /* snippet-set-animate */
-  let label = document.querySelector('label')!;
-  const a = `hello world!`/* seg-set-animate */;/* seg-set-animate */
+  let label = document.querySelector('label')/*seg-query*/!;/*seg-query*/
   label.innerHTML = label.innerHTML.split('').map((letters, i) => {
-    return `<span 
-    style="transition-delay:${i * 30}ms;
+    return `<span style="transition-delay:${i * 30}ms;
     filter: hue-rotate(${i * 10}deg)">
     ${letters}
     </span>`
@@ -41,7 +39,7 @@ onMounted(() => {
 
 /* snippet-basic */
 
-.click-after-2, .click-any {
+.step4-typed, .click-any {
   /* snippet-inputbox */
   .input-box {
     position: relative;
@@ -65,7 +63,7 @@ onMounted(() => {
   /* snippet-inputbox */
 }
 
-.click-after-3, .click-any{
+.step5-typed, .click-any{
   /* snippet-inputlabel */
   .input-box label {
     position: absolute;
@@ -87,7 +85,7 @@ onMounted(() => {
   /* snippet-inputlabel */
 }
 
-.click-after-4, .click-any {
+.step6-typed, .click-any {
   /* snippet-inputlabelcolor */
   .input-box input:focus~label span,
   .input-box input:valid~label span {

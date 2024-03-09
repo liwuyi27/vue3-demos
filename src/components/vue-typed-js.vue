@@ -3,6 +3,7 @@
 </template>
 <script setup lang="ts">
 import { unrefElement } from '@vueuse/core';
+import { useRouteQuery } from '@vueuse/router';
 import Typed, { type TypedOptions } from 'typed.js';
 import { onMounted, ref, watch } from 'vue';
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 const props = defineProps<Props>();
 const typedElm = ref();
 let typed: Typed;
+const typing = useRouteQuery('typing', 'false', { transform: Boolean });
 
 onMounted(() => {
   createTyped();
@@ -27,8 +29,12 @@ function createTyped() {
     strings: props.strings,
     typeSpeed: 15,
     showCursor: false,
-    ...props.options
+    ...props.options,
+    onComplete: () => {
+      typing.value = false;
+    }
   })
+  typing.value = true;
   return typed;
 }
 </script>

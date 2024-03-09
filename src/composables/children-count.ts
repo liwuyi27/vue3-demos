@@ -21,7 +21,6 @@ export const getChildren = (vm: ComponentInternalInstance, name: string) => {
       }
     }
   })
-  console.log(`components - ${name} : `, ret)
   return ret;
 }
 

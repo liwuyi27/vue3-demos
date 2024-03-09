@@ -2,7 +2,6 @@
   <blog>
     <slide1></slide1>
     <slide2></slide2>
-    <span>a</span>
   </blog>
 </template>
 <script setup lang="ts">

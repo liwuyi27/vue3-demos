@@ -21,7 +21,7 @@ setCDN('/node_modules/shiki/');
 
 const props = withDefaults(defineProps<Props>(), {
   bg: 'rgb(30, 30, 30)',
-  border: true,
+  border: false,
 });
 
 let highlighter: Highlighter;
@@ -68,13 +68,25 @@ function highlightCode() {
 <style lang="scss">
 .code-pane {
   font-size: 14px;
-  font-weight: bold;
+  font-weight: normal;
+  width: max-content;
+  transform: scale(1.5);
+  transform-origin: top left;
+  transform-box: content-box;
+
+  .title {
+    font-weight: normal;
+    color: white;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
   .line {
-    line-height: 1.3;
+    line-height: 1.4;
   }
 
   pre {
-    padding: 20px;
+    padding-left: 10px;
     margin: 0;
   }
 
@@ -88,11 +100,6 @@ function highlightCode() {
 
   .line {
     display: block;
-  }
-  .title {
-    color: white;
-    font-size: 14px;
-    padding-left: 20px;
   }
 }
 </style>
