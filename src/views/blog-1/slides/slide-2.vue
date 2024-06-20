@@ -46,7 +46,7 @@ const codes = useParseVue(modules);
     transform: translate(950px, 50px) scale(1.5);
     transition: transform 1.5s;
   }
-
+ 
   &.step8-typed, &.step8-typing {
     .basic-html {
       transition: none;

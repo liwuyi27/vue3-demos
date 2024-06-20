@@ -1,4 +1,4 @@
-import { isNil } from "lodash";
+import { isArray, isNil } from "lodash";
 import { isVNode, type ComponentInternalInstance, type VNode, type VNodeArrayChildren} from "vue";
 
 export const getChildrenCount = (vm: ComponentInternalInstance, name: string) => {
@@ -22,6 +22,15 @@ export const getChildren = (vm: ComponentInternalInstance, name: string) => {
     }
   })
   return ret;
+}
+
+export const getChildren1 = (vm: ComponentInternalInstance, name: string) => {
+  const children = vm.subTree.children;
+  if (isArray(children)) {
+    children.forEach
+  } else {
+    children
+  }
 }
 
 function getComponent(vm: ComponentInternalInstance, name: string) {

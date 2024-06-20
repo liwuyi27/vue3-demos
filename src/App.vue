@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import LeftMenu from './components/left-menu/left-menu.vue';
+import { useStorage, onKeyStroke } from "@vueuse/core";
+const isFullscreen = useStorage('is-fullscreen', false);
+onKeyStroke('Escape', () => {
+  isFullscreen.value = !isFullscreen.value;
+})
 </script>
 <template>
   <div class="app-container">
-    <left-menu></left-menu>
+    <left-menu v-if="!isFullscreen"></left-menu>
     <div class="app-main">
       <router-view></router-view>
     </div>
@@ -20,6 +25,7 @@ html, body, #app, .app-container {
   display: flex;
   background: rgb(30, 30, 30);
 }
+
 .app-main {
   padding: 20px;
   position: relative;
