@@ -14,7 +14,7 @@ jobs:
       - name: install deps
         run: npm install
       - name: build dist
-        run: npm run build
+        run: npm run build-only
       - name: move dist files to the server nginx
         uses: zhenyuWang/Upload-File-Action@v1.0.1
         with:
