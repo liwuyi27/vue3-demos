@@ -14,6 +14,8 @@ import Tooltip from '@/components/tooltip.vue'
 import Blog from './components/blog.vue'
 import ResultPane from '@/components/result-pane.vue'
 
+import './style/main.scss';
+
 const app = createApp(App)
 
 app.use(router)

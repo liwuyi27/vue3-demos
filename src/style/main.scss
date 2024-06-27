@@ -1,0 +1,39 @@
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity .2s ease;
+  opacity: .6;
+  outline: none;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+
+  nav a {
+    margin-right: 20px;
+  }
+}

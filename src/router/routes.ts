@@ -3,41 +3,57 @@ import type { RouteRecordRaw } from "vue-router";
 export const routes = createRoutes();
 
 function createRoutes() {
-  const fileRegx = /\/views\/([\w-]+)\.vue/;
-  const dirRegx = /\/views\/([\w-]+)\/([\w-]+)\.vue/;
-  const modules = import.meta.glob(['@/views/*.vue', '@/views/**/*.vue']);
+  const pathRegx = /\/views\/((?<firstCategory>[\w-]+)\/)?((?<secondCategory>[\w-]+)\/)?(?<fileName>[\w-]+)\.vue/;
+  const modules = import.meta.glob(['@/views/*.vue', '@/views/**/*.vue', '@/views/**/**/main.vue']);
   const routes: RouteRecordRaw[] = [];
   Object.entries(modules).forEach(([path, moduleFn]) => {
-    let match = fileRegx.exec(path);
-    if (match) {
-      const name = match[1];
-      const route: RouteRecordRaw = {
-        name,
-        path: `/${name}`,
-        component: moduleFn
-      };
-      routes.push(route);
-      return;
-    }
-    match = dirRegx.exec(path);
-    if (match) {
-      const dir = match[1];
-      const name = match[2];
-      let route = routes.find(item => item.name === dir);
-      if (!route) {
-        route = {
-          name: dir,
-          path: `/${dir}`,
-          children: []
-        };
-        routes.push(route);
+    let match = pathRegx.exec(path);
+    let parentRoute: RouteRecordRaw | undefined;
+    if (!match) return;
+    const { firstCategory, secondCategory, fileName } = match.groups!;
+    let parentName: string;
+    let childName: string;
+    if (!firstCategory && !secondCategory) {
+      if (fileName === 'list') {
+        routes.push({
+          name: 'list',
+          path: '/:category',
+          component: moduleFn
+        })
+        return;
+      } else if (fileName === 'self-introduction') {
+        routes.push({
+          name: 'self-introduction',
+          path: '/',
+          component: moduleFn
+        });
+        return;
       }
-      route.children?.push({
-        name: `${dir}-${name}`,
-        path: `${name}`,
-        component: moduleFn
-      })
+      parentName = 'others';
+      childName = fileName;
+    } else if (!secondCategory) {
+      parentName = firstCategory;
+      childName = fileName;
+    } else {
+      parentName = firstCategory;
+      childName = secondCategory;
     }
+    parentRoute = routes.find(item => item.path === `/${parentName}`);
+    if (!parentRoute) {
+      parentRoute = {
+        // name: parentName,
+        path: `/${parentName}`,
+        children: []
+      };
+      routes.push(parentRoute);
+    }
+    const childRoute: RouteRecordRaw = {
+      name: childName,
+      path: childName,
+      component: moduleFn
+    }
+    parentRoute.children!.push(childRoute)
   })
+  console.log(routes);
   return routes;
 }
