@@ -1,17 +1,16 @@
 html,
-body,
-#app {
+body {
   margin: 0;
   padding: 0;
   height: 100%;
 }
 
-li {
-  list-style: none;
-}
-
 * {
   box-sizing: border-box;
+}
+
+li {
+  list-style: none;
 }
 
 a {
@@ -27,13 +26,27 @@ a {
   }
 }
 
-.nav-header {
+#app {
+  height: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
+  flex-direction: column;
 
-  nav a {
-    margin-right: 20px;
+  &>header {
+    height: 85px;
+    flex: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    border-bottom: 1px solid #DCDFE6;
+
+    nav a {
+      margin-right: 20px;
+    }
+  }
+
+  &>main {
+    padding: 20px;
+    flex: auto;
   }
 }
