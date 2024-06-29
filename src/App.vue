@@ -7,7 +7,9 @@ onKeyStroke('Escape', () => {
 })
 </script>
 <template>
-  <nav-header></nav-header>
+  <transition>
+    <nav-header v-if="!isFullscreen"></nav-header>
+  </transition>
   <main>
     <router-view></router-view>
   </main>
