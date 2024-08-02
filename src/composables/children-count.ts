@@ -1,64 +1,75 @@
-import { isArray, isNil } from "lodash";
-import { isVNode, type ComponentInternalInstance, type VNode, type VNodeArrayChildren} from "vue";
+import { isArray, isObject, isString, isNil } from 'lodash'
+import {
+  type VNodeNormalizedChildren,
+  type VNodeArrayChildren,
+  isVNode,
+  type VNode,
+  type ComponentInternalInstance
+} from 'vue'
 
 export const getChildrenCount = (vm: ComponentInternalInstance, name: string) => {
-  return getChildren(vm, name).length;
+  return getChildren(vm, name).length
 }
 
-export const getChildren = (vm: ComponentInternalInstance, name: string) => {
-  let _children = vm.subTree.children as VNodeArrayChildren;
-  if (isNil(_children[0])) {
-    _children = vm.subTree!.component!.subTree!.children as VNodeArrayChildren
-  }
-  const vnode = _children[0] as VNode;
-  const children = vnode.children as VNodeArrayChildren;
-  const ret: ComponentInternalInstance[] = []
-  children.forEach((vn) => {
-    if (isVNode(vn)) {
-      const comp = getComponent(vn.component!, name);
-      if (comp) {
-        ret.push(comp);
-      }
-    }
-  })
-  return ret;
-}
-
-export const getChildren1 = (vm: ComponentInternalInstance, name: string) => {
-  const children = vm.subTree.children;
-  if (isArray(children)) {
-    children.forEach
-  } else {
-    children
-  }
-}
-
-function getComponent(vm: ComponentInternalInstance, name: string) {
-  let _name = vm?.type.__name;
-  if (name === _name) {
-    return vm;
-  }
-  _name = vm?.subTree.component?.type.__name;
-  if (name === _name) {
-    return vm.subTree.component;
-  }
-  return null;
-}
-
-export const getChildrenIndex = (vm: ComponentInternalInstance, name: string, parentName: string) => {
-  let parent = vm.parent;
-  while(parent) {
+export const getChildrenIndex = (
+  vm: ComponentInternalInstance,
+  name: string,
+  parentName: string
+) => {
+  let parent = vm.parent
+  while (parent) {
     if (parentName === parent.type.__name) {
-      break;
+      break
     }
-    parent = parent.parent;
+    parent = parent.parent
   }
   if (isNil(parent)) {
-    return -1;
+    return -1
   }
-  const children = getChildren(parent, name);
-  const index = children.findIndex(item => {
-    return item.uid === vm.uid;
+  const children = getChildren(parent, name)
+  const index = children.findIndex((item) => {
+    return item.uid === vm.uid
   })
-  return index;
+  return index
 }
+
+
+function getChildren(vm: ComponentInternalInstance, name: string) {
+  const children = vm!.subTree.children as VNodeArrayChildren | string
+  if (isString(children)) {
+    return []
+  }
+  const components: ComponentInternalInstance[] = []
+  children.forEach((child) => {
+    if (isVNode(child)) {
+      traverse(child)
+    }
+  })
+
+  function traverse(root: VNode) {
+    let children: VNodeNormalizedChildren
+    // component
+    if (isObject(root.type)) {
+      const vm = root.component
+      if (!vm) {
+        return
+      }
+      if (name === vm.type.__name) {
+        components.push(vm)
+        return
+      }
+      traverse(vm.subTree);
+      return;
+    } 
+    children = root.children
+    if (isArray(children)) {
+      children.forEach((child) => {
+        if (isVNode(child)) {
+          traverse(child)
+        }
+      })
+    }
+  }
+  return components
+}
+

@@ -20,7 +20,7 @@ const curSlide = useRouteQuery('slide', 1, { transform: Number });
 const { stepTotal, mySlide } = inject(stepKey)!
 
 onMounted(() => {
-  myStep.value = getChildrenIndex(getCurrentInstance()!, 'step', 'slide') + 1;
+  myStep.value = getChildrenIndex(getCurrentInstance()!, 'v-step', 'v-slide') + 1;
 })
 
 const show = computed(() => {

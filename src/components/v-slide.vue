@@ -54,8 +54,8 @@ const klass = computed(() => {
 })
 
 onMounted(() => {
-  stepTotal.value = getChildrenCount(getCurrentInstance()!, 'step');
-  mySlide.value = getChildrenIndex(getCurrentInstance()!, 'slide', 'blog') + 1; 
+  stepTotal.value = getChildrenCount(getCurrentInstance()!, 'v-step');
+  mySlide.value = getChildrenIndex(getCurrentInstance()!, 'v-slide', 'v-blog') + 1; 
   updateStepTotals(mySlide.value, stepTotal.value);    
 })
 

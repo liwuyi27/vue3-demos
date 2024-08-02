@@ -1,7 +1,7 @@
 <template>
   <header class="nav-header">
     <router-link to="/">
-      <el-avatar :size="40" :src="LogoImg"></el-avatar>
+      liwuyi
     </router-link>
     <nav>
       <router-link :to="route.path" v-for="route in filterRoutes">{{ path2Name(route.path) }}</router-link>

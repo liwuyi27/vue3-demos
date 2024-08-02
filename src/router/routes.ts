@@ -54,6 +54,5 @@ function createRoutes() {
     }
     parentRoute.children!.push(childRoute)
   })
-  console.log(routes);
   return routes;
 }

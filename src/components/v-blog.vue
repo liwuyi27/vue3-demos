@@ -13,9 +13,10 @@ import { computed, getCurrentInstance, onMounted, provide, ref } from 'vue';
 const slideTotal = ref(0);
 const stepTotals = ref<number[]>([]); 
 
-function updateStepTotals(slide: number, stepTotal: number) {
-  stepTotals.value[slide] = stepTotal;
+function updateStepTotals(slideIndex: number, stepTotal: number) {
+  stepTotals.value[slideIndex] = stepTotal;
 }
+
 provide(slideKey, {
   slideTotal,
   stepTotals, 
@@ -25,6 +26,7 @@ provide(slideKey, {
 const curSlide = useRouteQuery('slide', 1, { transform: Number });
 const curStep = useRouteQuery('step', 1, { transform: Number });
 const typing = useRouteQuery('typing', 'false', { transform: String });
+
 const stepTotal = computed(() => {
   return stepTotals.value[curSlide.value];
 })
@@ -54,9 +56,11 @@ onKeyStroke('ArrowRight', () => {
     resetTyping();
   }
 });
+
 onMounted(() => {
-  slideTotal.value = getChildrenCount(getCurrentInstance()!, 'slide');
+  slideTotal.value = getChildrenCount(getCurrentInstance()!, 'v-slide');
 })
+
 </script>
 <style lang="scss">
 .blog {
