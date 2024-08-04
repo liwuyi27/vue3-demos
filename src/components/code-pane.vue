@@ -6,7 +6,7 @@ import { setCDN, getHighlighter, renderToHtml } from "shiki";
 import type { Highlighter, } from 'shiki';
 import { useShiki } from '@/composables/shiki';
 import { computed, onMounted, ref } from "vue";
-import VueTypedJs from "./vue-typed-js.vue";
+import VueTypedJs from "./v-typed.vue";
 import { isEmpty } from "lodash";
 interface Props {
   code: string,
