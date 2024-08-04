@@ -2,7 +2,7 @@
   <vue-typed-js :strings="strings" class="code-pane" :class="{ border }" :style="borderStyle" v-if="codeHtml"></vue-typed-js>
 </template>
 <script setup lang="ts">
-import { setCDN, getHighlighter, renderToHtml } from "shiki";
+import { setCDN, getHighlighter, renderToHtml, setWasm } from "shiki";
 import type { Highlighter, } from 'shiki';
 import { useShiki } from '@/composables/shiki';
 import { computed, onMounted, ref } from "vue";
@@ -17,7 +17,7 @@ interface Props {
   title?: string
 }
 
-setCDN('/node_modules/shiki/');
+setCDN('/shiki/');
 
 const props = withDefaults(defineProps<Props>(), {
   bg: 'rgb(30, 30, 30)',
