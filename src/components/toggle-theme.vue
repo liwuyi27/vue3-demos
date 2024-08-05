@@ -14,7 +14,6 @@ function toggle(event: MouseEvent) {
     && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!isAppearanceTransition) {
-    console.log('no transion')
     isDark.value = !isDark.value;
     return;
   }
@@ -26,7 +25,6 @@ function toggle(event: MouseEvent) {
     Math.max(x, innerWidth - x),
     Math.max(y, innerHeight - y)
   )
-  console.log(x, y, endRadius)
   // @ts-expect-error: Transition API
   const transition = document.startViewTransition(async () => {
     isDark.value = !isDark.value;

@@ -1,10 +1,11 @@
 <template>
-  <div v-html="html"></div>
+  <vue-typed-js :strings="[html]" class="code-pane" v-if="html"></vue-typed-js>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { getHighlighter } from "../composables/highlighter";
 import { type BundledLanguage, type BundledTheme, type HighlighterGeneric } from 'shiki';
+import VueTypedJs from "./v-typed.vue";
 
 interface Props {
   code: string,

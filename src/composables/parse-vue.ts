@@ -70,16 +70,8 @@ function clearSnippetComment(content: string) {
   return ret;
 }
 
-function clearTempalteIndent(content: string) {
-  const subs = content.split(/\r?\n/).map(item => {
-    return item.slice(2);
-  });
-  return subs.join('\r\n');
-}
-
 function trimContent(content: string) {
   let subs = content.split(/\r?\n/);
-  // console.log(subs);
   let i: number;
   // 去掉头部的空行
   for (i = 0; i < subs.length; i++) {
@@ -96,7 +88,6 @@ function trimContent(content: string) {
   }
   subs = subs.slice(0, i + 1);
   
-  console.log(subs);
   for (i = 0; i < subs[0].length; i++) {
     if (!isBlank(subs[0][i])) {
       break;
