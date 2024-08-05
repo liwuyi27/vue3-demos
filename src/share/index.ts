@@ -1,5 +1,5 @@
 export function isBlank(value: string) {
-  const regx = /^\s+$/;
+  const regx = /^\s*$/;
   return regx.test(value);
 }
 

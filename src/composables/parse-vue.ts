@@ -1,4 +1,4 @@
-import { trimLineChar } from "@/share";
+import { isBlank, trimLineChar } from "@/share";
 interface ParseResult {
   template: ParseResultItem,
   script: ParseResultItem,
@@ -26,9 +26,7 @@ export const useParseVue = (modules: Record<string, string>) => {
       const match = regx.exec(content);
       if (match) {
         let content = match.groups!.content;
-        if (key === 'template') {
-          content = clearTempalteIndent(content);
-        }
+        content = trimContent(content);
         const parseResultItem = parseParseResultItem(content);
         parseResult[key as keyof ParseResult] = parseResultItem;
       } else {
@@ -59,7 +57,7 @@ function parseParseResultItem(content: string) {
   let match = snippetRegx.exec(content);
   while(match) {
     const { name, code } = match.groups!;
-    resultItem[name] = trimLineChar(code);
+    resultItem[name] = trimContent(code);
     match = snippetRegx.exec(content);
   }
   return resultItem;
@@ -76,5 +74,34 @@ function clearTempalteIndent(content: string) {
   const subs = content.split(/\r?\n/).map(item => {
     return item.slice(2);
   });
+  return subs.join('\r\n');
+}
+
+function trimContent(content: string) {
+  let subs = content.split(/\r?\n/);
+  // console.log(subs);
+  let i: number;
+  // 去掉头部的空行
+  for (i = 0; i < subs.length; i++) {
+    if(!isBlank(subs[i])) {
+      break;
+    }
+  }
+  subs = subs.slice(i);
+  // 去掉尾部的空行
+  for (i = subs.length - 1; i >= 0; i--) {
+    if (!isBlank(subs[i])) {
+      break;
+    }
+  }
+  subs = subs.slice(0, i + 1);
+  
+  console.log(subs);
+  for (i = 0; i < subs[0].length; i++) {
+    if (!isBlank(subs[0][i])) {
+      break;
+    }
+  }
+  subs = subs.map(sub => sub.slice(i))
   return subs.join('\r\n');
 }

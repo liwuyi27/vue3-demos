@@ -9,12 +9,12 @@ import 'virtual:uno.css'
 import { MotionPlugin } from '@vueuse/motion'
 import Slide from '@/components/v-slide.vue'
 import Step from '@/components/v-step.vue'
-import CodePane from '@/components/code-pane.vue'
+import CodePane from '@/components/v-code.vue'
 import Tooltip from '@/components/v-tooltip.vue'
 import Blog from './components/v-blog.vue'
 import ResultPane from '@/components/result-pane.vue'
 
-import './style/main.scss';
+import './style/index.scss';
 
 const app = createApp(App)
 

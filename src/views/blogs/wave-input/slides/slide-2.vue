@@ -43,7 +43,7 @@ const codes = useParseVue(modules);
 .slide-2 {
   &.step1-typed .basic-html {
     position: absolute;
-    transform: translate(950px, 50px) scale(1.5);
+    transform: translate(950px);
     transition: transform 1.5s;
   }
  
@@ -57,7 +57,7 @@ const codes = useParseVue(modules);
     width: 40%;
     height: 50%;
     position: absolute;
-    left: 950px;
+    left: 980px;
     top: 300px;
   }
 

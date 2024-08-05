@@ -5,7 +5,6 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite';
 import AutoImport from "unplugin-auto-import/vite";
-import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,14 +15,6 @@ export default defineConfig({
     AutoImport({
       imports: ['vue']
     }),
-    viteStaticCopy({
-      targets: [
-        {
-          src: 'node_modules/shiki',
-          dest: '.'
-        }
-      ]
-    })
   ],
   resolve: {
     alias: {
