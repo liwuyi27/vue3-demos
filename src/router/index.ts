@@ -3,7 +3,11 @@ import { routes } from './routes';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes: [{
+    name: 'home',
+    path: '/',
+    redirect: '/blogs'
+  }, ...routes]
 })
 
 export default router

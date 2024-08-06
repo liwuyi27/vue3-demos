@@ -29,8 +29,7 @@ function createRoutes() {
         });
         return;
       }
-      parentName = 'others';
-      childName = fileName;
+      return
     } else if (!secondCategory) {
       parentName = firstCategory;
       childName = fileName;

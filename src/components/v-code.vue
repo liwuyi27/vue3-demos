@@ -29,6 +29,17 @@ onMounted(async () => {
         '#121212': '#1e1e1e'
       }
     },
+    transformers: [
+      {
+        tokens(tokens) {
+          console.log(tokens);
+          return tokens;
+        }
+      }
+    ],
+    decorations: [
+      
+    ],
     lang: props.lang
   })
   if (props.title) {

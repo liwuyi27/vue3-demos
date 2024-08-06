@@ -1,7 +1,6 @@
 <template>
   <header class="nav-header">
     <router-link to="/">
-      <!-- <el-avatar :src="LogoImg"></el-avatar> -->
       liwuyi
     </router-link>
     <nav>
@@ -15,7 +14,6 @@
 </template>
 <script setup lang="ts">
 import { routes } from "../router/routes";
-import LogoImg from '../assets/logo.png';
 import { capitalize } from "lodash";
 import ToggleTheme from '../components/toggle-theme.vue';
 const filterRoutes = routes.filter((item) => {

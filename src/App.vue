@@ -3,6 +3,7 @@ import { useStorage, onKeyStroke } from "@vueuse/core";
 import NavHeader from './components/nav-header.vue';
 import { useRoute } from "vue-router";
 import { computed } from "vue";
+import { getHighlighter } from "./composables/highlighter";
 const isFullscreen = useStorage('is-fullscreen', false);
 onKeyStroke('Escape', () => {
   isFullscreen.value = !isFullscreen.value;
@@ -14,6 +15,8 @@ const klass = computed(() => {
   }
   return route.path.split('/')[1];
 })
+// 提前加载highlighter
+getHighlighter();
 </script>
 <template>
   <transition>
