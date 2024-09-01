@@ -4,7 +4,7 @@ export const routes = createRoutes();
 
 function createRoutes() {
   const pathRegx = /\/views\/((?<firstCategory>[\w-]+)\/)?((?<secondCategory>[\w-]+)\/)?(?<fileName>[\w-]+)\.vue/;
-  const modules = import.meta.glob(['@/views/*.vue', '@/views/**/*.vue', '@/views/**/**/main.vue']);
+  const modules = import.meta.glob(['/src/views/*.vue', '/src/views/*/*.vue', '/src/views/*/*/main.vue']);
   const routes: RouteRecordRaw[] = [];
   Object.entries(modules).forEach(([path, moduleFn]) => {
     let match = pathRegx.exec(path);

@@ -1,3 +1,24 @@
 <template>
-  <div>I am vue3 list</div>
+  <canvas ref="canvasDom"></canvas>
 </template>
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+
+const canvasDom = ref<HTMLCanvasElement>();
+
+onMounted(() => {
+  draw(canvasDom.value!);
+})
+
+function draw(canvas: HTMLCanvasElement) {
+  if (!canvas.getContext) {
+    return;
+  }
+  const ctx = canvas.getContext('2d')!;
+  ctx.fillStyle = 'rgb(200 0 0)';
+  ctx.fillRect(10, 10, 50, 50);
+
+  ctx.fillStyle = 'rgb(0 0 200 / 50%)';
+  ctx.fillRect(30, 30, 50, 50);
+}
+</script>

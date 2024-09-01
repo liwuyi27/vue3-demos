@@ -78,10 +78,15 @@ html {
 
   &>main {
     padding: 20px;
-    flex-grow: auto;
+    flex: auto;
     overflow: auto;
     &.blogs {
       display: flex;
+      flex: 1 0 auto;
+    }
+
+    &.games {
+      padding: 0;
       flex: 1 0 auto;
     }
   }
